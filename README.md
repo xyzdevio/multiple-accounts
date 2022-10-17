@@ -1,6 +1,6 @@
 # multiple-accounts
 
-Notes on handling multiple github accounts
+Notes and instructions for easily switching between multiple github accounts
 
 ## Initial Notes
 
