@@ -46,19 +46,19 @@ mkdir -p ~/.1password && ln -s ~/Library/Group\ Containers/2BUA8C4S2C.com.1passw
 
 The local setup boils down to the following edits being added to the user info:
 
-`~/.bashrc`
+[`~/.bashrc`](https://github.com/xyzdevio/multiple-accounts/blob/main/.secrets#L1-L2)
 ````
 source ~/.secrets
 source ~/.alias
 ````
-`~/.secrets`
+[`~/.secrets`](https://github.com/xyzdevio/multiple-accounts/blob/main/.secrets#L1-L4)
 ````
 # 1Password
 # https://developer.1password.com/docs/ssh/get-started#step-4-configure-your-ssh-or-git-client
 # this is needed bc [not every setup](https://developer.1password.com/docs/ssh/agent/compatibility) allows use of IdentityFile in the config
 export SSH_AUTH_SOCK=~/.1password/agent.sock
 ````
-`~/.ssh/config`
+[`~/.ssh/config`](https://github.com/xyzdevio/multiple-accounts/blob/main/.ssh/config#L1-L12)
 ````
 Host username_a_host
   HostName github.com
@@ -72,12 +72,12 @@ Host username_b_host
   IdentityFile ~/.ssh/username_b_ssh_key.pub
   IdentitiesOnly yes
 ````
-`~/.ssh/username_a_ssh_key.pub`
+[`~/.ssh/username_a_ssh_key.pub`](https://github.com/xyzdevio/multiple-accounts/blob/main/.ssh/username_a_ssh_key.pub)
 > :warning: make sure the file has [chmod 600](https://unix.stackexchange.com/questions/257590/ssh-key-permissions-chmod-settings)
 ````
 copied down version from 1pass of the public key for username_a
 ````
-`~/.ssh/username_b_ssh_key.pub`
+[`~/.ssh/username_b_ssh_key.pub`](https://github.com/xyzdevio/multiple-accounts/blob/main/.ssh/username_b_ssh_key.pub)
 > :warning: make sure the file has [chmod 600](https://unix.stackexchange.com/questions/257590/ssh-key-permissions-chmod-settings)
 ````
 copied down version from 1pass of the public key for username_b
@@ -196,11 +196,14 @@ Since 1pass is our ssh auth, this technically means we have a different host; th
 Simple way to do that is with the following aliases:
 > The `gh auth setup-git` in the alias links your `git config` profile to whatever is your `gh auth` profile.
 > I like keeping `ghswitch` and `sshswitch` separate, but might be easiest just to have them as one command
-`~/.alias`
+[`~/.alias`](https://github.com/xyzdevio/multiple-accounts/blob/main/.alias#L1-L7)
 ```
-https://github.com/xyzdevio/multiple-accounts/blob/main/.alias#L1-L7
+alias ghswitchparams='echo -e "1: user.name"'
+alias ghswitch='function _blah(){ gh profile switch $1; gh auth setup-git; };_blah'
+
+alias sshswitchparams='echo -e "1: user.name\n2: <org-OR-username>/<repo-name>"'
+alias sshswitch='function _blah(){ git remote set-url origin "$1_host:$2.git"; echo "Using 1pass-ssh. remote origin set to $1_host:$2.git instead of regular git@github.com:$2.git";};_blah'
 ```
-https://github.com/xyzdevio/multiple-accounts/blob/main/.alias#L1-L7
 
 ## Complete :partying_face:
 
