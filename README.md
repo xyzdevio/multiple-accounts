@@ -197,13 +197,10 @@ Simple way to do that is with the following aliases:
 > The `gh auth setup-git` in the alias links your `git config` profile to whatever is your `gh auth` profile.
 > I like keeping `ghswitch` and `sshswitch` separate, but might be easiest just to have them as one command
 `~/.alias`
-````
-alias ghswitchparams='echo -e "1: user.name"'
-alias ghswitch='function _blah(){ gh profile switch $1; gh auth setup-git; };_blah'
-
-alias sshswitchparams='echo -e "1: user.name\n2: <org-OR-username>/<repo-name>"'
-alias sshswitch='function _blah(){ git remote set-url origin "$1_host:$2.git"; echo "Using 1pass-ssh. remote origin set to $1_host:$2.git instead of regular git@github.com:$2.git";};_blah'
-````
+```
+https://github.com/xyzdevio/multiple-accounts/blob/main/.alias#L1-L7
+```
+https://github.com/xyzdevio/multiple-accounts/blob/main/.alias#L1-L7
 
 ## Complete :partying_face:
 
