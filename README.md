@@ -11,25 +11,32 @@ I dont like remembering things, so want to just be easily able to switch between
 - want to just use my password manager for ssh keys
 - want the profile switch to work for both git and gh together
 
+## Steps (TOC)
+
+- [Password Manager](#password-manager)
+- [Switch between github accounts on gh](#switch-between-github-accounts-on-gh)
+- [Connect git config and gh](#connect-git-config-and-gh)
+- [Complete](#complete-partying_face)
+
 ## Password Manager
 
 > If you dont have a password manager, I highly recommend getting/using one. If your password manager does not have assistance with ssh integration, an alternative is is to use [direnv](https://direnv.net/) but that requires manual additions for every directory you're in.
 
 I use [1Password](https://1password.com/) which [has a way](https://developer.1password.com/docs/ssh/get-started) to integrate with the ssh setup while still allowing the items to be defined by each user.
 
-1. Make a new ssh key directly in the 1password ui. This creates a private key on start and then autogenerates the remaining needed items (pub, etc).
+**_1. Make a new ssh key directly in the 1password ui. This creates a private key on start and then autogenerates the remaining needed items (pub, etc)._**
 
 <img width="378" alt="Screen Shot 2022-10-16 at 5 19 36 PM" src="https://user-images.githubusercontent.com/114540173/196066196-702c6d3a-98f8-4bc3-ae81-6e487220ac4a.png">
 
-2. Add the created ssh private key to the same github account's profile.
+**_2. Add the created ssh private key to the same github account's profile._**
 
 <img width="582" alt="Screen Shot 2022-10-16 at 5 29 29 PM" src="https://user-images.githubusercontent.com/114540173/196066636-d5e3f6e5-c41c-4b8a-ac23-9be82ecff855.png">
 
-2.5 Repeat steps 1 and 2 for all github accounts you need
+**_2.5 Repeat steps 1 and 2 for all github accounts you need_**
 
 We're going to be doing this for github `username_a` and `username_b` respectively for this example.
 
-3. Then you need to make your local setup use that info.
+**_3. Then you need to make your local setup use that info._**
 
 Run the following to help with ssh setup (1pass files can be in odd locations) by creating a `~/.1password` folder for easy access (linux/mac).
 From the green tip section of [instructions](https://developer.1password.com/docs/ssh/get-started#step-4-configure-your-ssh-or-git-client).
@@ -76,17 +83,18 @@ copied down version from 1pass of the public key for username_a
 copied down version from 1pass of the public key for username_b
 ````
 
-4. Turn on 1pass ssh agent
+**_4. Turn on 1pass ssh agent_**
 
 [Instructions](https://developer.1password.com/docs/ssh/get-started#step-3-turn-on-the-1password-ssh-agent) specify the following settings for use:
 
--------->INSERT PHOTOS HERE<-------
+<img width="758" alt="Screen Shot 2022-10-16 at 7 06 45 PM" src="https://user-images.githubusercontent.com/114540173/196073972-e58dc9e5-9b61-4395-b090-ea2ce083deff.png">
+<img width="643" alt="Screen Shot 2022-10-16 at 7 07 13 PM" src="https://user-images.githubusercontent.com/114540173/196074050-2cba4020-6f6c-49f6-a721-2debf193be6f.png">
 
 ## Switch between github accounts on gh
 
-1. Download gh (github cli) - [instructions](https://cli.github.com/manual/installation)
+**_1. Download gh (github cli) - [instructions](https://cli.github.com/manual/installation)_**
 
-2. login to a specific gh account
+**_2. login to a specific gh account_**
 > This is needed so we can download a `gh` extension.
 
 ```
@@ -104,16 +112,16 @@ github.com
   ✓ Token: *******************
 ````
 
-:warning: DO NOT LOGOUT YET
+:warning: DO NOT LOGOUT
 
-3. Install the [gh profile](https://github.com/gabe565/gh-profile) extension and set each up for `username_a` and `username_b`.
+**_3. Install the [gh profile](https://github.com/gabe565/gh-profile) extension and set each up for `username_a` and `username_b`._**
 > Alternatively you can do this manually with [yermulnik's workaround](https://gist.github.com/yermulnik/017837c01879ed3c7489cc7cf749ae47).
 
-**Do the following for each profile, we'll be doing this for username_a and username_b**.
+*Do the following for each profile, we'll be doing this for username_a and username_b*.
 
 BEGIN_FOR_EACH_USERNAME_LOOP
 
-3.1 Create the profile
+**_3.1 Create the profile_**
 
 ````
 gh profile create username_blah
@@ -134,7 +142,7 @@ profiles
 
 :warning: This might log you out of `gh auth`. Dont worry as that is expected since we are changing the focus from the original `gh/hosts.yml` file to a profile-specific one (aliasing `gh/hosts.yml` in the process). What this does is it sets up the `gh profile` extension, which sym points to a specific gh profile's hosts.yml file instead of the direct `gh auth login`'s singular hosts.yml file.
 
-3.2 Fill out the profile
+**_3.2 Fill out the profile_**
 
 Since you're on the correct profile, login to gh
 > If you do this and then you usually redirect to the web, make sure that you are also logged into the correct github profile at github.com first as it'll just auth to whatever is already there.
@@ -143,7 +151,7 @@ Since you're on the correct profile, login to gh
 gh auth login
 ````
 
-3.3 Check that you logged in for the right profile
+**_3.3 Check that you logged in for the right profile_**
 
 aka check that `gh auth status` shows the information that matches your current `gh profile switch
 
@@ -159,13 +167,14 @@ github.com:
 ````
 
 :warning: if you want to login with one username at ssh && http depending on the repo, it's best to make two separate profiles so you can call them directly.
+
 :bangbang: Once you setup your `gh profiles` you dont need to use `gh auth login` or `gh auth logout` anymore. If you'd prefer to use those to let others login, make sure to switch to the default profile first or `gh profile create random_user` so your other profiles dont get overwritten if theyre the profile that's set when the login happens.
 
 END_FOR_EACH_USERNAME_LOOP
 
 ## Connect git config and gh
 
-1. Cleanup the git config
+**_1. Cleanup the git config_**
 
 If you've used git config before to create a global user.name and user.email, make sure to delete them from your config file
 
@@ -180,7 +189,7 @@ git config --global --unset user.name
 git config --global --unset user.email
 ````
 
-2. Fixing repo auth for ssh.
+**_2. Fixing repo auth for ssh._**
 
 Since 1pass is our ssh auth, this technically means we have a different host; that is, everytime you clone a new repo you just need to update the host from git@github.com to the 1pass host in your configs.
 
