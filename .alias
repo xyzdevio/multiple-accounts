@@ -1,0 +1,7 @@
+#! /bin/bash
+
+alias ghswitchparams='echo -e "1: user.name"'
+alias ghswitch='function _blah(){ gh profile switch $1; gh auth setup-git; };_blah'
+
+alias sshswitchparams='echo -e "1: user.name\n2: <org-OR-username>/<repo-name>"'
+alias sshswitch='function _blah(){ git remote set-url origin "$1_host:$2.git"; echo "Using 1pass-ssh. remote origin set to $1_host:$2.git instead of regular git@github.com:$2.git";};_blah'

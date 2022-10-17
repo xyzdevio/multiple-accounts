@@ -1,0 +1,2 @@
+source ~/.secrets
+source ~/.alias
