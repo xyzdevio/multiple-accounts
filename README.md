@@ -206,6 +206,8 @@ alias sshswitchparams='echo -e "1: user.name\n2: <org-OR-username>/<repo-name>"'
 alias sshswitch='function _blah(){ git remote set-url origin "$1_host:$2.git"; echo "Using 1pass-ssh. remote origin set to $1_host:$2.git instead of regular git@github.com:$2.git";};_blah'
 ````
 
+:warning: *_Because of the host requirement, you **will always** need to run `sshswitch` when inside a newly cloned repo_*
+
 ## Complete :partying_face:
 
 Should now be able to switch easily between github accounts locally and keep git and gh in sync however you want.
