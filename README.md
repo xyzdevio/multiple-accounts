@@ -211,3 +211,7 @@ alias sshswitch='function _blah(){ git remote set-url origin "$1_host:$2.git"; e
 ## Complete :partying_face:
 
 Should now be able to switch easily between github accounts locally and keep git and gh in sync however you want.
+
+## REMAINING TODO :bangbang:
+
+:bangbang: need to add an install section that just using cli setup and just prompts users to fill in info and it just sets it up for them
